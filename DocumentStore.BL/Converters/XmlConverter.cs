@@ -10,7 +10,7 @@ namespace DocumentStore.BL.Converters
         public Stream Convert([NotNull] string documentJson)
         {
             var memoryStream = new MemoryStream();
-            XmlDocument doc = JsonConvert.DeserializeXmlNode(documentJson, "DocumentRoot");
+            var doc = JsonConvert.DeserializeXNode(documentJson, "DocumentRoot");
 
             using (XmlWriter xmlWriter = XmlWriter.Create(memoryStream, new XmlWriterSettings()
             {

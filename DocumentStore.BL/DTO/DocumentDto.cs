@@ -15,8 +15,6 @@ namespace DocumentStore.BL.DTO
     {
         public string Id { get; set; }
         public string[] Tags { get; set; }
-        public object Data { get; set; }
+        public dynamic Data { get; set; }
     }
-
-
 }

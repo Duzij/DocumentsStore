@@ -40,11 +40,13 @@ namespace DocumentsStore.Middlewares
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
             if (exception is DocumentNotFoundException)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             }
-            else if (exception is FormatNotSupportedException)
+            else if (exception is FormatNotSupportedException or DocumentAlreadyExistsException)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }

@@ -4,8 +4,8 @@ namespace DocumentStore.BL.Stores
 {
     public interface IDocumentRepository
     {
-        Task<Stream> GetAsync(string? format, string id);
+        Task<Stream> GetAsync(DocumentFileFormat format, string documentId);
         Task SaveAsync(DocumentDto document);
-        Task UpdateAsync(string? format, DocumentDto document);
+        Task UpdateAsync(DocumentDto document);
     }
 }

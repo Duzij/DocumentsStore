@@ -2,7 +2,6 @@
 using DocumentStore.BL.DTO;
 using DocumentStore.BL.Exceptions;
 using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
 
 namespace DocumentStore.BL.Stores
 {
@@ -21,13 +20,18 @@ namespace DocumentStore.BL.Stores
             this.messagePackConverter = messagePackConverter;
         }
 
-        public override async Task SaveAsync(DocumentDto document)
+        protected override Task<bool> ExistsAsync(DocumentDto document)
         {
-            var json = JsonConvert.SerializeObject(document);
-            memoryCache.Set(document.Id, json, DateTime.UtcNow.AddDays(1));
+            return Task.FromResult(memoryCache.Get<string>(document.Id) is not null);
         }
 
-        protected override async Task<Stream> GetByIdAsync(DocumentFileFormat format, string documentId)
+        protected override Task InsertAsync(DocumentDto document)
+        {
+            var json = System.Text.Json.JsonSerializer.Serialize(document);
+            return Task.FromResult(memoryCache.Set(document.Id, json, DateTime.UtcNow.AddDays(1)));
+        }
+
+        public override async Task<Stream> GetAsync(DocumentFileFormat format, string documentId)
         {
             var documentJson = memoryCache.Get<string>(documentId);
 
@@ -41,6 +45,7 @@ namespace DocumentStore.BL.Stores
                 DocumentFileFormat.XML => await xmlConverter.ConvertAsync(documentJson),
                 DocumentFileFormat.JSON => await jsonConverter.ConvertAsync(documentJson),
                 DocumentFileFormat.MessagePack => await messagePackConverter.ConvertAsync(documentJson),
+                _ => throw new FormatNotSupportedException(),
             };
         }
     }
