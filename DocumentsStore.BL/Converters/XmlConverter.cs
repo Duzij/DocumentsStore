@@ -1,9 +1,9 @@
-﻿using DocumentStore.BL.Converters.Intefaces;
+﻿using DocumentsStore.BL.Converters.Intefaces;
 using Newtonsoft.Json;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 
-namespace DocumentStore.BL.Converters
+namespace DocumentsStore.BL.Converters
 {
     public class XmlConverter : IXmlConverter
     {

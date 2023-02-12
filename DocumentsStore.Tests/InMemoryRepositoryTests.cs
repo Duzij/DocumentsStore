@@ -1,13 +1,13 @@
-﻿using DocumentStore.BL.Converters.Intefaces;
-using DocumentStore.BL.DTO;
-using DocumentStore.BL.Exceptions;
-using DocumentStore.BL.Stores;
+﻿using DocumentsStore.BL.Converters.Intefaces;
+using DocumentsStore.BL.DTO;
+using DocumentsStore.BL.Exceptions;
+using DocumentsStore.BL.Stores;
 using MemoryCache.Testing.Moq;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using Newtonsoft.Json;
 
-namespace DocumentStore.Tests
+namespace DocumentsStore.Tests
 {
     public class InMemoryRepositoryTests
     {

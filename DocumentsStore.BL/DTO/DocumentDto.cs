@@ -1,4 +1,4 @@
-namespace DocumentStore.BL.DTO
+namespace DocumentsStore.BL.DTO
 {
     //{
     //    "id": "some-unique-identifier1",

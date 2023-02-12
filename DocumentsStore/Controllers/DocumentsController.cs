@@ -1,6 +1,6 @@
-using DocumentStore.BL;
-using DocumentStore.BL.DTO;
-using DocumentStore.BL.Stores;
+using DocumentsStore.BL;
+using DocumentsStore.BL.DTO;
+using DocumentsStore.BL.Stores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentsStore.Controllers

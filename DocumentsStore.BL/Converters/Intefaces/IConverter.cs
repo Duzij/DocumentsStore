@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace DocumentStore.BL.Converters.Intefaces
+namespace DocumentsStore.BL.Converters.Intefaces
 {
     public interface IConverter
     {

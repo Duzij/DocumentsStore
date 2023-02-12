@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace DocumentStore.BL
+namespace DocumentsStore.BL
 {
     public static class EnumHelper
     {

@@ -1,8 +1,6 @@
-﻿using DocumentStore.BL.Converters;
-using DocumentStore.BL.DTO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace DocumentStore.Tests
+namespace DocumentsStore.Tests
 {
     public class MessagePackConverterTests
     {

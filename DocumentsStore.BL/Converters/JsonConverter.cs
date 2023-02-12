@@ -1,8 +1,8 @@
-﻿using DocumentStore.BL.Converters.Intefaces;
+﻿using DocumentsStore.BL.Converters.Intefaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace DocumentStore.BL.Converters
+namespace DocumentsStore.BL.Converters
 {
     public class JsonConverter : IJsonConverter
     {

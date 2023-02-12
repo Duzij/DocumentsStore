@@ -1,9 +1,8 @@
-﻿using DocumentStore.BL.Converters.Intefaces;
-using DocumentStore.BL.DTO;
-using DocumentStore.BL.Exceptions;
+﻿using DocumentsStore.BL.Converters.Intefaces;
+using DocumentsStore.BL.DTO;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace DocumentStore.BL.Stores
+namespace DocumentsStore.BL.Stores
 {
     public class InMemoryRepository : DocumentRepository
     {

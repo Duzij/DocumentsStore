@@ -1,7 +1,6 @@
-﻿using DocumentStore.BL.DTO;
-using DocumentStore.BL.Exceptions;
+﻿using DocumentsStore.BL.DTO;
 
-namespace DocumentStore.BL.Stores
+namespace DocumentsStore.BL.Stores
 {
     public abstract class DocumentRepository : IDocumentRepository
     {

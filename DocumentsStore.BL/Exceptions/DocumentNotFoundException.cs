@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace DocumentStore.BL.Exceptions
+namespace DocumentsStore.BL.Exceptions
 {
     [Serializable]
     public class DocumentNotFoundException : Exception

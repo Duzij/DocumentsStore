@@ -1,4 +1,4 @@
-﻿namespace DocumentStore.Tests
+﻿namespace DocumentsStore.Tests
 {
     public static class XmlHelper
     {

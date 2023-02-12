@@ -1,6 +1,6 @@
-using DocumentStore.BL.Converters;
-using DocumentStore.BL.Converters.Intefaces;
-using DocumentStore.BL.Stores;
+using DocumentsStore.BL.Converters;
+using DocumentsStore.BL.Converters.Intefaces;
+using DocumentsStore.BL.Stores;
 
 var builder = WebApplication.CreateBuilder(args);
 

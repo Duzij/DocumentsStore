@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using DocumentStore.BL.Converters.Intefaces;
+using DocumentsStore.BL.Converters.Intefaces;
 using MessagePack;
 
-namespace DocumentStore.BL.Converters
+namespace DocumentsStore.BL.Converters
 {
     public class MessagePackConverter : IMessagePackConverter
     {

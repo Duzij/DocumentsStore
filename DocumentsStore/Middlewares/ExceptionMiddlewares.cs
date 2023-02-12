@@ -1,5 +1,5 @@
-﻿using DocumentsStore.Middlewares;
-using DocumentStore.BL.Exceptions;
+﻿using DocumentsStore.BL.Exceptions;
+using DocumentsStore.Middlewares;
 using System.Collections;
 using System.Net;
 using System.Text;

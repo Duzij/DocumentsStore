@@ -1,6 +1,6 @@
-﻿using DocumentStore.BL.DTO;
+﻿using DocumentsStore.BL.DTO;
 
-namespace DocumentStore.BL.Stores
+namespace DocumentsStore.BL.Stores
 {
     public interface IDocumentRepository
     {

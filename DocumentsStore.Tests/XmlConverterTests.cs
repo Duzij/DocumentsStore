@@ -1,8 +1,7 @@
-using DocumentStore.BL.Converters;
-using DocumentStore.BL.DTO;
+using DocumentsStore.BL.Converters;
 using Newtonsoft.Json;
 
-namespace DocumentStore.Tests
+namespace DocumentsStore.Tests
 {
     public class XmlConverterTests
     {

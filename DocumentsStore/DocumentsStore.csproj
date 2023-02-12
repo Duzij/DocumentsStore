@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DocumentStore.BL\DocumentStore.BL.csproj" />
+    <ProjectReference Include="..\DocumentsStore.BL\DocumentsStore.BL.csproj" />
   </ItemGroup>
 
 </Project>

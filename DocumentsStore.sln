@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentsStore", "DocumentsStore\DocumentsStore.csproj", "{4A097EB0-B491-4C7C-ABEC-D466C7229E59}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentStore.BL", "DocumentStore.BL\DocumentStore.BL.csproj", "{9EE2F621-047E-4E11-B7E4-BB51B177C9F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentsStore.BL", "DocumentsStore.BL\DocumentsStore.BL.csproj", "{9EE2F621-047E-4E11-B7E4-BB51B177C9F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentStore.Tests", "DocumentStore.Tests\DocumentStore.Tests.csproj", "{ECE01A71-ABAC-4B1E-A29B-1FAAA23AFD92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentsStore.Tests", "DocumentsStore.Tests\DocumentsStore.Tests.csproj", "{ECE01A71-ABAC-4B1E-A29B-1FAAA23AFD92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

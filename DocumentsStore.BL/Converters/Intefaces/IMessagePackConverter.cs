@@ -1,4 +1,4 @@
-﻿namespace DocumentStore.BL.Converters.Intefaces
+﻿namespace DocumentsStore.BL.Converters.Intefaces
 {
     public interface IMessagePackConverter : IConverter
     {
