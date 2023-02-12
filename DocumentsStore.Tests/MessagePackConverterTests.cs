@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using DocumentsStore.BL.Converters;
+using DocumentsStore.BL.DTO;
+using Newtonsoft.Json;
 
 namespace DocumentsStore.Tests
 {
@@ -25,7 +27,7 @@ namespace DocumentsStore.Tests
             var json = JsonConvert.SerializeObject(doc);
             var converter = new MessagePackConverter();
             var messagePackMsg = converter.Convert(json);
-            StreamReader reader = new StreamReader(messagePackMsg, System.Text.Encoding.UTF8);
+            StreamReader reader = new(messagePackMsg, System.Text.Encoding.UTF8);
             var file = reader.ReadToEnd();
 
             //Assert

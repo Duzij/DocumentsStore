@@ -22,7 +22,7 @@ namespace DocumentsStore.Controllers
         {
             var supportedFormat = EnumHelper.GetEnumMemberValue<DocumentFileFormat>(HttpContext.Request.Headers.Accept);
             var document = await documentRepository.GetAsync(supportedFormat, documentId);
-            return new FileStreamResult(document, HttpContext.Request.Headers.Accept);
+            return new FileStreamResult(document, HttpContext.Request.Headers.Accept!);
         }
 
         [HttpPut]
