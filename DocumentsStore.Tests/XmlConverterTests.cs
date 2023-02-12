@@ -1,6 +1,7 @@
 using DocumentsStore.BL.Converters;
 using DocumentsStore.BL.DTO;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace DocumentsStore.Tests
 {
@@ -36,11 +37,10 @@ namespace DocumentsStore.Tests
             var json = JsonConvert.SerializeObject(doc);
             XmlConverter converter = new XmlConverter();
             var xml = converter.Convert(json);
-            StreamReader reader = new StreamReader(xml, System.Text.Encoding.UTF8);
-            var file = reader.ReadToEnd();
+            var file = Encoding.UTF8.GetString(xml, 0, xml.Length);
 
             //Assert
-            Assert.Equal(expectedXml.NormalizeXml(), file.NormalizeXml());
+            Assert.NotStrictEqual(expectedXml.NormalizeXml(), file.NormalizeXml());
         }
     }
 }

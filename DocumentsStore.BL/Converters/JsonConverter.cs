@@ -6,17 +6,18 @@ namespace DocumentsStore.BL.Converters
 {
     public class JsonConverter : IJsonConverter
     {
-        public Stream Convert([NotNull] string documentJson)
+        public byte[] Convert([NotNull] string documentJson)
         {
-            return ConvertAsync(documentJson).ConfigureAwait(false).GetAwaiter().GetResult();
+            var memoryStream = new MemoryStream();
+            memoryStream.WriteAsync(Encoding.UTF8.GetBytes(documentJson));
+            return memoryStream.ToArray();
         }
 
-        public async Task<Stream> ConvertAsync([NotNull] string documentJson)
+        public async Task<byte[]> ConvertAsync([NotNull] string documentJson)
         {
             var memoryStream = new MemoryStream();
             await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(documentJson));
-            memoryStream.Position = 0;
-            return memoryStream;
+            return memoryStream.ToArray();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DocumentsStore.BL.Converters;
 using DocumentsStore.BL.DTO;
+using MessagePack;
 using Newtonsoft.Json;
 
 namespace DocumentsStore.Tests
@@ -10,8 +11,7 @@ namespace DocumentsStore.Tests
         public void MessagePackConverterDocumentIntegrity()
         {
             //Arrange
-            var expectedXml = "�g{\"Id\":\"some-unique-identifier1\",\"Tags\":[\"important\",\".net\"],\"Data\":{\"some\":\"data\",\"optional\":\"fields\"}}";
-
+            using var memoryStream = new MemoryStream();
             var doc = new DocumentDto()
             {
                 Id = "some-unique-identifier1",
@@ -23,15 +23,15 @@ namespace DocumentsStore.Tests
                 }
             };
 
+            MessagePackSerializer.Serialize(memoryStream, doc, MessagePack.Resolvers.ContractlessStandardResolver.Options);
+
             //Act
             var json = JsonConvert.SerializeObject(doc);
             var converter = new MessagePackConverter();
             var messagePackMsg = converter.Convert(json);
-            StreamReader reader = new(messagePackMsg, System.Text.Encoding.UTF8);
-            var file = reader.ReadToEnd();
 
             //Assert
-            Assert.Equal(expectedXml.NormalizeXml(), file.NormalizeXml());
+            Assert.Equal(memoryStream.ToArray(), messagePackMsg);
         }
     }
 }

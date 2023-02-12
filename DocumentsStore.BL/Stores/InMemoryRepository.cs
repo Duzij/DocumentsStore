@@ -31,7 +31,7 @@ namespace DocumentsStore.BL.Stores
             return Task.FromResult(memoryCache.Set(document.Id, json, DateTime.UtcNow.AddDays(1)));
         }
 
-        public override async Task<Stream> GetAsync(DocumentFileFormat format, string documentId)
+        public override async Task<byte[]> GetAsync(DocumentFileFormat format, string documentId)
         {
             var documentJson = memoryCache.Get<string>(documentId);
 
@@ -40,13 +40,23 @@ namespace DocumentsStore.BL.Stores
                 throw new DocumentNotFoundException(documentId);
             }
 
-            return format switch
+            var stream = await memoryCache.GetOrCreateAsync($"{format}:{documentId}", async (cacheEntry) =>
             {
-                DocumentFileFormat.XML => await xmlConverter.ConvertAsync(documentJson),
-                DocumentFileFormat.JSON => await jsonConverter.ConvertAsync(documentJson),
-                DocumentFileFormat.MessagePack => await messagePackConverter.ConvertAsync(documentJson),
-                _ => throw new FormatNotSupportedException(),
-            };
+                return format switch
+                {
+                    DocumentFileFormat.XML => await xmlConverter.ConvertAsync(documentJson),
+                    DocumentFileFormat.JSON => await jsonConverter.ConvertAsync(documentJson),
+                    DocumentFileFormat.MessagePack => await messagePackConverter.ConvertAsync(documentJson),
+                    _ => throw new FormatNotSupportedException(),
+                };
+            });
+
+            if (stream == null)
+            {
+                throw new InvalidOperationException($"{nameof(InMemoryRepository)} cache returned null.");
+            }
+
+            return stream;
         }
     }
 }

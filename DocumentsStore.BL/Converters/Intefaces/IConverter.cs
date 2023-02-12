@@ -4,7 +4,7 @@ namespace DocumentsStore.BL.Converters.Intefaces
 {
     public interface IConverter
     {
-        Task<Stream> ConvertAsync([NotNull] string documentJson);
-        Stream Convert([NotNull] string documentJson);
+        Task<byte[]> ConvertAsync([NotNull] string documentJson);
+        byte[] Convert([NotNull] string documentJson);
     }
 }

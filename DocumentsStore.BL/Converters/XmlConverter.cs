@@ -7,7 +7,7 @@ namespace DocumentsStore.BL.Converters
 {
     public class XmlConverter : IXmlConverter
     {
-        public Stream Convert([NotNull] string documentJson)
+        public byte[] Convert([NotNull] string documentJson)
         {
             var memoryStream = new MemoryStream();
             var doc = JsonConvert.DeserializeXNode(documentJson, "DocumentRoot");
@@ -21,14 +21,12 @@ namespace DocumentsStore.BL.Converters
                 doc.WriteTo(xmlWriter);
             }
 
-            memoryStream.Position = 0;
-
-            return memoryStream;
+            return memoryStream.ToArray();
         }
 
-        public async Task<Stream> ConvertAsync([NotNull] string documentJson)
+        public Task<byte[]> ConvertAsync([NotNull] string documentJson)
         {
-            return Convert(documentJson);
+            return Task.FromResult(Convert(documentJson));
         }
     }
 }

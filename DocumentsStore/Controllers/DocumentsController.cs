@@ -17,12 +17,11 @@ namespace DocumentsStore.Controllers
         }
 
         [HttpGet("{documentId}")]
-        [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public async Task<FileStreamResult> Get(string documentId)
+        public async Task<IActionResult> Get(string documentId)
         {
             var supportedFormat = EnumHelper.GetEnumMemberValue<DocumentFileFormat>(HttpContext.Request.Headers.Accept);
             var document = await documentRepository.GetAsync(supportedFormat, documentId);
-            return new FileStreamResult(document, HttpContext.Request.Headers.Accept!);
+            return File(document, HttpContext.Request.Headers.Accept!);
         }
 
         [HttpPut]

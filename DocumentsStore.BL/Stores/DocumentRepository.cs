@@ -5,7 +5,7 @@ namespace DocumentsStore.BL.Stores
 {
     public abstract class DocumentRepository : IDocumentRepository
     {
-        public abstract Task<Stream> GetAsync(DocumentFileFormat format, string documentId);
+        public abstract Task<byte[]> GetAsync(DocumentFileFormat format, string documentId);
         protected abstract Task<bool> ExistsAsync(DocumentDto document);
         protected abstract Task InsertAsync(DocumentDto document);
 
