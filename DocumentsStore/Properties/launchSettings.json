@@ -1,4 +1,4 @@
-{
+ {
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
     "DocumentsStore": {
@@ -9,6 +9,15 @@
       "applicationUrl": "https://localhost:7059;http://localhost:5154",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "DocumentsStoreProduction": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "launchUrl": "",
+      "applicationUrl": "https://localhost:5000;http://localhost:5001",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     }
   }
