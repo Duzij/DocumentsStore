@@ -1,5 +1,6 @@
 ﻿using DocumentsStore.BL.Converters.Intefaces;
 using DocumentsStore.BL.DTO;
+using DocumentsStore.BL.Exceptions;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace DocumentsStore.BL.Stores

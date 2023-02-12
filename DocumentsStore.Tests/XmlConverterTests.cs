@@ -1,4 +1,5 @@
 using DocumentsStore.BL.Converters;
+using DocumentsStore.BL.DTO;
 using Newtonsoft.Json;
 
 namespace DocumentsStore.Tests

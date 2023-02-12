@@ -1,4 +1,5 @@
 ﻿using DocumentsStore.BL.DTO;
+using DocumentsStore.BL.Exceptions;
 
 namespace DocumentsStore.BL.Stores
 {
