@@ -8,14 +8,14 @@ namespace DocumentsStore.BL.Converters
     {
         public byte[] Convert([NotNull] string documentJson)
         {
-            var memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             memoryStream.WriteAsync(Encoding.UTF8.GetBytes(documentJson));
             return memoryStream.ToArray();
         }
 
         public async Task<byte[]> ConvertAsync([NotNull] string documentJson)
         {
-            var memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             await memoryStream.WriteAsync(Encoding.UTF8.GetBytes(documentJson));
             return memoryStream.ToArray();
         }

@@ -2,6 +2,7 @@
 using DocumentsStore.BL.DTO;
 using DocumentsStore.BL.Exceptions;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Primitives;
 
 namespace DocumentsStore.BL.Stores
 {
@@ -27,21 +28,31 @@ namespace DocumentsStore.BL.Stores
 
         protected override Task InsertAsync(DocumentDto document)
         {
+            if (memoryCache.TryGetValue<CancellationTokenSource>(document.Id + nameof(CancellationTokenSource), out var tokenSource))
+            {
+                tokenSource.Cancel();
+            }
+
             var json = System.Text.Json.JsonSerializer.Serialize(document);
             return Task.FromResult(memoryCache.Set(document.Id, json, DateTime.UtcNow.AddDays(1)));
         }
 
         public override async Task<byte[]> GetAsync(DocumentFileFormat format, string documentId)
         {
-            var documentJson = memoryCache.Get<string>(documentId);
+            var tokenSource = new CancellationTokenSource();
+            memoryCache.Set(documentId + nameof(CancellationTokenSource), tokenSource);
 
-            if (documentJson == null)
+            var fileContent = await memoryCache.GetOrCreateAsync($"{format}:{documentId}", async (cacheEntry) =>
             {
-                throw new DocumentNotFoundException(documentId);
-            }
+                cacheEntry.AddExpirationToken(new CancellationChangeToken(tokenSource.Token));
 
-            var stream = await memoryCache.GetOrCreateAsync($"{format}:{documentId}", async (cacheEntry) =>
-            {
+                var documentJson = memoryCache.Get<string>(documentId);
+
+                if (documentJson == null)
+                {
+                    throw new DocumentNotFoundException(documentId);
+                }
+
                 return format switch
                 {
                     DocumentFileFormat.XML => await xmlConverter.ConvertAsync(documentJson),
@@ -51,12 +62,12 @@ namespace DocumentsStore.BL.Stores
                 };
             });
 
-            if (stream == null)
+            if (fileContent == null)
             {
                 throw new InvalidOperationException($"{nameof(InMemoryRepository)} cache returned null.");
             }
 
-            return stream;
+            return fileContent;
         }
     }
 }

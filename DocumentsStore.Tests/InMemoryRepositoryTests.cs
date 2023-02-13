@@ -6,12 +6,16 @@ using MemoryCache.Testing.Moq;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace DocumentsStore.Tests
 {
     public class InMemoryRepositoryTests
     {
         private readonly IMemoryCache mockedCache;
+        private readonly Mock<IXmlConverter> xmlConverterMock;
+        private readonly Mock<IJsonConverter> jsonConverterMock;
+        private readonly Mock<IMessagePackConverter> messagePackConverterMock;
         public InMemoryRepository repository;
         private readonly DocumentDto doc;
         private readonly string staticIdentifier = "some-unique-identifier1";
@@ -19,9 +23,9 @@ namespace DocumentsStore.Tests
         public InMemoryRepositoryTests()
         {
             mockedCache = Create.MockedMemoryCache();
-            var xmlConverterMock = new Mock<IXmlConverter>();
-            var jsonConverterMock = new Mock<IJsonConverter>();
-            var messagePackConverterMock = new Mock<IMessagePackConverter>();
+            xmlConverterMock = new Mock<IXmlConverter>();
+            jsonConverterMock = new Mock<IJsonConverter>();
+            messagePackConverterMock = new Mock<IMessagePackConverter>();
 
             repository = new InMemoryRepository(
                 mockedCache,
@@ -41,7 +45,6 @@ namespace DocumentsStore.Tests
                 }
             };
         }
-
 
         [Fact]
         public async Task JsonHappySave()
@@ -101,6 +104,50 @@ namespace DocumentsStore.Tests
 
             //Assert
             await Assert.ThrowsAsync<DocumentNotFoundException>(() => result);
+        }
+
+
+        [Fact]
+        public async Task JsonSaveAsyncIntegrationTest()
+        {
+            //Arrange
+            var jsonConverter = new BL.Converters.JsonConverter();
+            repository = new InMemoryRepository(mockedCache,
+                xmlConverterMock.Object,
+                jsonConverter,
+                messagePackConverterMock.Object);
+
+            //Act
+            await repository.SaveAsync(doc);
+            var actualResult = await repository.GetAsync(DocumentFileFormat.JSON, staticIdentifier);
+
+            //Assert
+            var expectedResult = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(doc));
+            Assert.Equal(expectedResult, actualResult);
+
+        }
+
+        public async Task JsonUpdateAsyncIntegrationTest()
+        {
+            //Arrange
+            var jsonConverter = new BL.Converters.JsonConverter();
+            repository = new InMemoryRepository(mockedCache,
+                xmlConverterMock.Object,
+                jsonConverter,
+                messagePackConverterMock.Object);
+            await repository.SaveAsync(doc);
+
+            //Act 2
+            doc.Data = new
+            {
+                some = "data",
+            };
+            await repository.UpdateAsync(doc);
+            var actualResult = await repository.GetAsync(DocumentFileFormat.JSON, staticIdentifier);
+
+            //Assert
+            var expectedResult = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(doc));
+            Assert.Equal(expectedResult, actualResult);
         }
     }
 }
