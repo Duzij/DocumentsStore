@@ -137,7 +137,7 @@ namespace DocumentsStore.Tests
                 messagePackConverterMock.Object);
             await repository.SaveAsync(doc);
 
-            //Act 2
+            //Act
             doc.Data = new
             {
                 some = "data",
